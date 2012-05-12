@@ -11,10 +11,6 @@ class Trackr
     end
   end
 
-  def sites
-    @redis.keys "*"
-  end
-
   def track!(site, uid)
     time = Time.now.to_i
     sanitize!(site)
@@ -24,10 +20,6 @@ class Trackr
     expire_in = 60 * 60 # one hour
     @redis.setex site_history(site, interval(time)), expire_in, recent_visitors(site).size
     [site, uid, time]
-  end
-
-  def total_visitors(site)
-    @redis.zcard(site)
   end
 
   def recent_visitors(site)
