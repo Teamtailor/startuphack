@@ -73,6 +73,9 @@ class App < Sinatra::Base
         <li>
           Online right now: #{TRACKR.recent_visitors(site)}
         </li>
+        <li>
+          history: #{TRACKR.history(site)}
+        </li>
       </ul>
     BODY
   end

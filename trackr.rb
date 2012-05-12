@@ -21,7 +21,9 @@ class Trackr
     sanitize!(site)
 
     @redis.zadd site, time, uid
-    @redis.zadd site_history(site), interval(time), recent_visitors(site).size
+
+    expire_in = 60 * 60 # one hour
+    @redis.setex site_history(site, interval(time)), expire_in, recent_visitors(site).size
     [site, uid, time]
   end
 
@@ -36,9 +38,14 @@ class Trackr
     @redis.zrangebyscore(site, min_score, max_score)
   end
 
+  def history(site)
+    keys = @redis.keys(site_history(site, "*"))
+    @redis.mget(*keys).zip(keys.map{|key| key.split(":").last})
+  end
+
   private
-  def site_history(site)
-    site + ":history"
+  def site_history(site, time)
+    "#{site}:history:#{time}"
   end
 
   def sanitize!(site)
@@ -49,3 +56,4 @@ class Trackr
     time - (time % 5)
   end
 end
+
