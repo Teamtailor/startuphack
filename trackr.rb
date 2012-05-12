@@ -48,7 +48,6 @@ class Trackr
   def top_urls(site)
     sanitize!(site)
     keys = @redis.keys(site_url(site, "*"))
-    puts "keys: #{keys.inspect}"
     values = @redis.mget(*keys)
     sort_result(keys, values)
   end
