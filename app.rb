@@ -16,7 +16,7 @@ class App < Sinatra::Base
 
     site, uid, value = TRACKR.track!(site, uid)
 
-    content_type 'text/gif'
+    content_type 'image/gif'
     body ''
   end
 
