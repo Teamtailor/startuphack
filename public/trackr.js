@@ -66,8 +66,8 @@
     }
 
     function logger(){
-        _trackr_config_variables.domain
-        trackImage('//startuphack.herokuapp.com/track/'+ _trackr_config_variables.domain + "/" + guid)
+        _trackr_config.domain
+        trackImage('//startuphack.herokuapp.com/track/'+ _trackr_config.domain + "/" + guid)
         setTimeout(logger,3000);
     };
     var guid = getGuid();
