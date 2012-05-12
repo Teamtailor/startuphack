@@ -25,7 +25,8 @@ class App < Sinatra::Base
     site = params[:site]
     json_response = {
       :online_right_now => TRACKR.recent_visitors(site).size,
-      :history => TRACKR.history(site)
+      :history => TRACKR.history(site),
+      :top_urls => TRACKR.top_urls(site)
     }.to_json
 
     if callback = params.delete('callback')

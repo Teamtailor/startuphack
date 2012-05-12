@@ -42,12 +42,24 @@ class Trackr
       keys << site_history(site, key)
     end
     values = @redis.mget(*keys)
-    keys.map{|key| key.split(":").last.to_i }.zip(values.map(&:to_i)).sort do |a, b|
+    sort_result(keys, values)
+  end
+
+  def top_urls(site)
+    sanitize!(site)
+    keys = @redis.keys(site_url(site, "*"))
+    puts "keys: #{keys.inspect}"
+    values = @redis.mget(*keys)
+    sort_result(keys, values)
+  end
+
+  private
+  def sort_result(keys, values)
+    keys.map{|key| key.split(":").last }.zip(values.map(&:to_i)).sort do |a, b|
       b.first <=> a.first
     end
   end
 
-  private
   def site_history(site, time)
     "#{site}:history:#{time}"
   end
