@@ -1,5 +1,6 @@
 require 'sinatra/async'
 require_relative 'trackr'
+require 'json'
 
 class App < Sinatra::Base
   register Sinatra::Async
@@ -79,5 +80,15 @@ class App < Sinatra::Base
         </li>
       </ul>
     BODY
+  end
+
+  aget '/api/sites/:site' do
+    site = params[:site]
+    content_type :json
+    json_response = {
+      :online_right_now => TRACKR.recent_visitors(site).size,
+      :history => TRACKR.history(site)
+    }.to_json
+    body json_response
   end
 end
