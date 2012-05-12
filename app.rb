@@ -52,8 +52,8 @@ class App < Sinatra::Base
     BODY
   end
 
-  aget '/tracker.js' do
-    send_file(File.join(File.dirname(__FILE__), 'public', 'tracker.js'))
+  aget '/trackr.js' do
+    send_file(File.join(File.dirname(__FILE__), 'public', 'trackr.js'))
   end
 
 end
