@@ -17,11 +17,12 @@ class Trackr
   end
 
   def track!(site, uid)
-    value = Time.now.to_i
+    time = Time.now.to_i
     sanitize!(site)
 
-    @redis.zadd site, value, uid
-    [site, uid, value]
+    @redis.zadd site, time, uid
+    @redis.zadd site_history(site), interval(time), recent_visitors(site).size
+    [site, uid, time]
   end
 
   def total_visitors(site)
@@ -36,7 +37,15 @@ class Trackr
   end
 
   private
+  def site_history(site)
+    site + ":history"
+  end
+
   def sanitize!(site)
     site.gsub!(".", "_")
+  end
+
+  def interval(time)
+    time - (time % 5)
   end
 end
