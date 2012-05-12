@@ -13,8 +13,9 @@ class App < Sinatra::Base
   aget '/track/:site/:uid' do
     site = params[:site]
     uid = params[:uid]
+    url = params[:location]
 
-    site, uid, value = TRACKR.track!(site, uid)
+    TRACKR.track!(site, uid, url)
 
     content_type 'image/gif'
     body ''

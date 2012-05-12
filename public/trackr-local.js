@@ -66,7 +66,7 @@
     }
 
     function logger(){
-        trackImage('//localhost:3000/track/'+ _trackr_config.domain + "/" + guid)
+        trackImage('//localhost:3000/track/'+ _trackr_config.domain + "/" + guid + "?location=" + document.location.pathname)
         setTimeout(logger,3000);
     };
     var guid = getGuid();
