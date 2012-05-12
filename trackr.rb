@@ -2,7 +2,6 @@ require 'uri'
 require 'redis'
 
 class Trackr
-  # attr_accessor :redis, :site, :uid
   def initialize(env = ENV['RACK_ENV'])
     if env == "production"
       uri = URI.parse(ENV["REDISTOGO_URL"])
@@ -41,7 +40,6 @@ class Trackr
   def history(site)
     keys = @redis.keys(site_history(site, "*"))
     values = @redis.mget(*keys)
-    #.zip(keys.map{|key| key.split(":").last})
     keys.map do |key|
       {key.split(":").last.to_i => values[keys.index(key)].to_i}
     end
