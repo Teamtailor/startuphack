@@ -67,7 +67,7 @@
 
     function logger(){
         _trackr_config_variables.domain
-        trackImage('//localhost:3000/'+ _trackr_config_variables.domain + "/" + guid)
+        trackImage('//startuphack.herokuapp.com/track/'+ _trackr_config_variables.domain + "/" + guid)
         setTimeout(logger,3000);
     };
     var guid = getGuid();
