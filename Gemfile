@@ -2,6 +2,7 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem "sinatra"
+gem "async_sinatra"
+gem 'thin'
 gem "heroku"
 
