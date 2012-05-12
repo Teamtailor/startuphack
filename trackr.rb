@@ -37,7 +37,7 @@ class Trackr
     t2 = Time.now.to_i
     keys = []
     (t1..t2).step(5) do |key|
-      keys << key.to_s
+      keys << site_history(site, key)
     end
     values = @redis.mget(*keys)
     keys.map{|key| key.split(":").last.to_i }.zip(values.map(&:to_i)).sort do |a, b|
