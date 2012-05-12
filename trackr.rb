@@ -23,6 +23,7 @@ class Trackr
   end
 
   def recent_visitors(site)
+    sanitize!(site)
     min_score = Time.now.to_i - 6 # Just 6 seconds!!! ZOMG! REALTIME!
     max_score = Time.now.to_i
 
@@ -30,6 +31,7 @@ class Trackr
   end
 
   def history(site)
+    sanitize!(site)
     keys = @redis.keys(site_history(site, "*"))
     values = @redis.mget(*keys)
     keys.map{|key| key.split(":").last.to_i }.zip(values.map(&:to_i)).sort do |a, b|
