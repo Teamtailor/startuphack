@@ -17,7 +17,7 @@
         else
           valueToUse = escape(value);
 
-        document.cookie = name + "=" + valueToUse + expires + "; path=" + path;
+        document.cookie = name + "=" + valueToUse + expires + "; path=" + path + "; domain=" + _trackr_config.domain;
       },
       get: function(name) {
         var nameEQ = name + "=",
@@ -66,7 +66,6 @@
     }
 
     function logger(){
-        _trackr_config.domain
         trackImage('//startuphack.herokuapp.com/track/'+ _trackr_config.domain + "/" + guid)
         setTimeout(logger,3000);
     };
