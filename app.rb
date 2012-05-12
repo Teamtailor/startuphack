@@ -22,11 +22,18 @@ class App < Sinatra::Base
 
   aget '/api/sites/:site' do
     site = params[:site]
-    content_type :json
     json_response = {
       :online_right_now => TRACKR.recent_visitors(site).size,
       :history => TRACKR.history(site)
     }.to_json
-    body json_response
+
+    if callback = params.delete('callback')
+      content_type :js
+      response = "#{callback}(#{json_response})"
+    else
+      content_type :json
+      response = json_response
+    end
+    body response
   end
 end
