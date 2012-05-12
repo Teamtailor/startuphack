@@ -71,7 +71,7 @@ class App < Sinatra::Base
           Totals visitors (since last Redis restart): #{TRACKR.total_visitors(site)}
         </li>
         <li>
-          Visitors last 5 minutes: #{TRACKR.recent_visitors(site)}
+          Online right now: #{TRACKR.recent_visitors(site)}
         </li>
       </ul>
     BODY
