@@ -58,7 +58,8 @@ class App < Sinatra::Base
 
     site, uid, value = TRACKR.track!(site, uid)
 
-    body "stored #{value} for user #{uid} in site #{site}"
+    content_type 'text/gif'
+    body ''
   end
 
   aget '/stats/:site' do
