@@ -13,6 +13,11 @@ class App < Sinatra::Base
   end
 
   aget '/' do
+    sites = REDIS.keys "*"
+    sites_str = sites.map do |site|
+      "<li><a href='/stats/#{site}'>#{site.to_s}</a></li>"
+    end
+
     body <<-BODY
       <h1>Trackr</h1>
       <p>
@@ -21,6 +26,10 @@ class App < Sinatra::Base
       <p>
         To get stats: /stats/mynewsdesk_com
       </p>
+      <h2>Current sites</h2>
+      <ul>
+        #{sites_str.join}
+      </ul>
     BODY
   end
 
