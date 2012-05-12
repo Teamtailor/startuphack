@@ -32,9 +32,7 @@ class Trackr
   def history(site)
     keys = @redis.keys(site_history(site, "*"))
     values = @redis.mget(*keys)
-    keys.map do |key|
-      {key.split(":").last.to_i => values[keys.index(key)].to_i}
-    end
+    keys.map{|key| key.split(":").last.to_i }.zip(values.map(&:to_i))
   end
 
   private
