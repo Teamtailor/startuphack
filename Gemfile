@@ -5,4 +5,4 @@ source "https://rubygems.org"
 gem "async_sinatra"
 gem 'thin'
 gem "heroku"
-
+gem 'redis'
