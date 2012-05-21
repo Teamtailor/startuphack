@@ -26,7 +26,7 @@ class Trackr
 
   def recent_visitors(site)
     sanitize!(site)
-    min_score = Time.now.to_i - 6 # Just 6 seconds!!! ZOMG! REALTIME!
+    min_score = Time.now.to_i - 30
     max_score = Time.now.to_i
 
     @redis.zrangebyscore(site, min_score, max_score)
